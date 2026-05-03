@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Helicopter Swivels — Double Dutch Ltd.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Jost:wght@200;300;400;500&family=Jost:wght@100&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #060607;
+    --dark: #0c0c0e;
+    --charcoal: #141416;
+    --charcoal-mid: #1c1c1f;
+    --charcoal-light: #252528;
+    --gold: #c9a84c;
+    --gold-light: #e2c47a;
+    --gold-dim: #7a6230;
+    --sky-deep: #0b1e38;
+    --sky-blue: #1a5b9e;
+    --sky-mid: #2d8bc4;
+    --sky-bright: #5ab0e0;
+    --sky-pale: #9dd0f0;
+    --white: #f0ece4;
+    --text-off: #b8b0a0;
+    --text-dim: #6a6460;
+    --border-dark: #2a2a2d;
+    --border-gold: rgba(201,168,76,0.2);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    overflow-x: hidden;
+    font-weight: 300;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 0 4rem;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(6,6,7,0.9);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border-gold);
+  }
+  .nav-wordmark {
+    text-decoration: none;
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+  }
+  .nav-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .nav-divider {
+    width: 1px;
+    height: 14px;
+    background: var(--gold-dim);
+  }
+  .nav-sub {
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    font-weight: 300;
+  }
+  .nav-menu { display: flex; gap: 3rem; list-style: none; }
+  .nav-menu a {
+    font-size: 0.72rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-off);
+    text-decoration: none;
+    font-weight: 300;
+    transition: color 0.3s;
+  }
+  .nav-menu a:hover { color: var(--gold); }
+
+  /* ── HERO ── */
+  #hero {
+    position: relative;
+    height: 100vh;
+    min-height: 700px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+  }
+
+  /* Sky panel — right half */
+  .hero-sky-panel {
+    position: absolute;
+    top: 0; right: 0;
+    width: 55%;
+    height: 100%;
+    background: linear-gradient(
+      160deg,
+      #060e1c 0%,
+      #0d2a52 20%,
+      #1a5b9e 45%,
+      #2d8bc4 70%,
+      #5ab0e0 88%,
+      #9dd0f0 100%
+    );
+    clip-path: polygon(8% 0, 100% 0, 100% 100%, 0% 100%);
+  }
+
+  /* Cloud textures on sky panel */
+  .sky-clouds {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .hero-content-left {
+    position: relative;
+    z-index: 10;
+    padding: 0 4rem 0 5rem;
+  }
+
+  .hero-rule {
+    width: 48px;
+    height: 1px;
+    background: var(--gold);
+    margin-bottom: 2rem;
+    animation: expandRule 1.2s ease both;
+  }
+  @keyframes expandRule {
+    from { width: 0; opacity: 0; }
+    to { width: 48px; opacity: 1; }
+  }
+
+  .hero-eyebrow {
+    font-size: 0.65rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+    animation: riseIn 1s 0.1s ease both;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 5.5vw, 5.5rem);
+    font-weight: 600;
+    line-height: 1.05;
+    color: var(--white);
+    margin-bottom: 2rem;
+    animation: riseIn 1s 0.2s ease both;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-divider {
+    width: 100%;
+    max-width: 320px;
+    height: 1px;
+    background: linear-gradient(to right, var(--border-gold), transparent);
+    margin-bottom: 2rem;
+    animation: riseIn 1s 0.3s ease both;
+  }
+
+  .hero-desc {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    color: var(--text-off);
+    max-width: 380px;
+    font-weight: 300;
+    margin-bottom: 3rem;
+    animation: riseIn 1s 0.4s ease both;
+  }
+
+  .hero-cta-row {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    animation: riseIn 1s 0.5s ease both;
+  }
+  .cta-primary {
+    font-size: 0.7rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    padding: 1rem 2.5rem;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s;
+    font-weight: 400;
+  }
+  .cta-primary:hover {
+    background: var(--gold);
+    color: var(--black);
+  }
+  .cta-secondary {
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.3s;
+    font-weight: 300;
+  }
+  .cta-secondary:hover { color: var(--gold); }
+
+  @keyframes riseIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Hero right — helicopter in sky */
+  .hero-right-panel {
+    position: relative;
+    height: 100%;
+    z-index: 5;
+  }
+
+  .heli-scene-wrap {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+  }
+
+  /* SVG helicopter animations */
+  .heli-float {
+    animation: premiumFloat 5s ease-in-out infinite;
+  }
+  @keyframes premiumFloat {
+    0%,100% { transform: translateY(0) rotate(0deg); }
+    33% { transform: translateY(-16px) rotate(-0.5deg); }
+    66% { transform: translateY(-8px) rotate(0.3deg); }
+  }
+  .rotor-main {
+    transform-origin: 80px 15px;
+    animation: rotorSpin 0.18s linear infinite;
+  }
+  @keyframes rotorSpin {
+    to { transform: rotate(360deg); }
+  }
+  .line-and-load {
+    transform-origin: 80px 105px;
+    animation: loadSwing 5s ease-in-out infinite;
+  }
+  @keyframes loadSwing {
+    0%,100% { transform: rotate(-1deg); }
+    50% { transform: rotate(1deg); }
+  }
+
+  /* ── SECTION BASE ── */
+  .section { padding: 8rem 5rem; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .label-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .label-line {
+    width: 24px; height: 1px;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+  .label-text {
+    font-size: 0.62rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 400;
+  }
+  .sec-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-weight: 600;
+    line-height: 1.1;
+    color: var(--white);
+    margin-bottom: 3rem;
+  }
+  .sec-heading em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  /* ── ABOUT ── */
+  #about { background: var(--dark); border-top: 1px solid var(--border-dark); }
+  .about-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+  .about-body p {
+    font-size: 0.95rem;
+    line-height: 2;
+    color: var(--text-off);
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+  }
+  .about-body p:last-child { margin: 0; }
+  .about-body strong { color: var(--gold-light); font-weight: 400; }
+
+  .metrics-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border-dark);
+    border: 1px solid var(--border-dark);
+  }
+  .metric {
+    background: var(--charcoal);
+    padding: 2.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .metric::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(to right, var(--gold), transparent);
+  }
+  .metric-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 600;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .metric-suf { font-size: 1.5rem; }
+  .metric-label {
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-top: 0.5rem;
+    font-weight: 300;
+  }
+
+  .founder-panel {
+    grid-column: 1 / -1;
+    padding: 3rem;
+    background: var(--charcoal-mid);
+    border: 1px solid var(--border-gold);
+    position: relative;
+    margin-top: 3rem;
+  }
+  .founder-panel::before {
+    content: '\201C';
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 8rem;
+    color: var(--gold-dim);
+    position: absolute;
+    top: -1rem; left: 2rem;
+    line-height: 1;
+  }
+  .founder-quote-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.35rem;
+    line-height: 1.65;
+    color: var(--text-off);
+    padding-top: 2.5rem;
+    max-width: 800px;
+    margin-bottom: 1.5rem;
+  }
+  .founder-sig {
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* ── PRODUCTS ── */
+  #products { background: var(--black); border-top: 1px solid var(--border-dark); }
+
+  .prod-feature {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 1px solid var(--border-dark);
+    margin-bottom: 2px;
+    overflow: hidden;
+    transition: border-color 0.4s;
+  }
+  .prod-feature:hover { border-color: var(--border-gold); }
+  .prod-feature.reverse { direction: rtl; }
+  .prod-feature.reverse > * { direction: ltr; }
+
+  .prod-image-panel {
+    position: relative;
+    overflow: hidden;
+    min-height: 400px;
+    background: var(--charcoal);
+  }
+  .prod-image-panel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    inset: 0;
+    filter: grayscale(15%) brightness(0.85);
+    transition: filter 0.5s, transform 0.6s;
+  }
+  .prod-feature:hover .prod-image-panel img {
+    filter: grayscale(0%) brightness(0.95);
+    transform: scale(1.04);
+  }
+  .prod-image-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(6,6,7,0.3), transparent);
+    pointer-events: none;
+  }
+
+  .prod-info-panel {
+    padding: 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--charcoal);
+  }
+  .prod-category {
+    font-size: 0.6rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 1rem;
+    font-weight: 400;
+  }
+  .prod-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem;
+    font-weight: 600;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .prod-full-name {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+    margin-bottom: 2rem;
+    font-weight: 300;
+  }
+  .prod-desc-text {
+    font-size: 0.9rem;
+    line-height: 1.9;
+    color: var(--text-off);
+    font-weight: 300;
+    margin-bottom: 2.5rem;
+  }
+
+  .specs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--border-dark);
+  }
+  .spec-row {
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid var(--border-dark);
+    border-right: 1px solid var(--border-dark);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+  }
+  .spec-row:nth-child(even) { border-right: none; }
+  .spec-row:nth-last-child(-n+2) { border-bottom: none; }
+  .sk {
+    font-size: 0.62rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    font-weight: 300;
+    white-space: nowrap;
+  }
+  .sv {
+    font-size: 0.85rem;
+    color: var(--white);
+    text-align: right;
+    font-weight: 400;
+  }
+  .sv.gold { color: var(--gold); }
+
+  .prod-origin {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-dark);
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+  }
+  .prod-origin::before {
+    content: '';
+    width: 16px; height: 1px;
+    background: var(--gold-dim);
+  }
+
+  /* ── GALLERY ── */
+  #gallery { background: var(--charcoal); border-top: 1px solid var(--border-dark); }
+  .gallery-mosaic {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr;
+    grid-template-rows: 300px 300px;
+    gap: 2px;
+  }
+  .gal-cell {
+    overflow: hidden;
+    position: relative;
+    background: var(--charcoal-mid);
+  }
+  .gal-cell:first-child {
+    grid-row: 1 / 3;
+  }
+  .gal-cell img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(30%) brightness(0.8);
+    transition: filter 0.5s, transform 0.6s;
+  }
+  .gal-cell:hover img {
+    filter: grayscale(0%) brightness(0.95);
+    transform: scale(1.04);
+  }
+  .gal-cell-label {
+    position: absolute;
+    bottom: 1.5rem; left: 1.5rem;
+    font-size: 0.62rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(201,168,76,0.7);
+    font-weight: 300;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  .gal-cell:hover .gal-cell-label {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--dark); border-top: 1px solid var(--border-dark); }
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 6rem;
+  }
+
+  .contact-detail-group { margin-bottom: 2.5rem; }
+  .cdg-label {
+    font-size: 0.58rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 0.5rem;
+    font-weight: 400;
+  }
+  .cdg-value {
+    font-size: 0.95rem;
+    color: var(--text-off);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+  .cdg-value a { color: var(--gold-light); text-decoration: none; }
+  .cdg-value a:hover { color: var(--gold); }
+
+  .lang-note-gold {
+    margin-top: 3rem;
+    padding: 1.5rem 2rem;
+    border: 1px solid var(--border-gold);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-dim);
+  }
+  .lang-note-gold strong { color: var(--gold-dim); font-style: normal; }
+
+  .contact-form-wrap { display: flex; flex-direction: column; gap: 1.25rem; }
+  .cf-group { display: flex; flex-direction: column; gap: 0.5rem; }
+  .cf-label {
+    font-size: 0.6rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    font-weight: 300;
+  }
+  .cf-input, .cf-textarea {
+    background: var(--charcoal);
+    border: 1px solid var(--border-dark);
+    color: var(--white);
+    padding: 0.9rem 1.25rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 300;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+  .cf-input:focus, .cf-textarea:focus { border-color: var(--gold-dim); }
+  .cf-input::placeholder, .cf-textarea::placeholder { color: var(--text-dim); }
+  .cf-textarea { min-height: 140px; resize: vertical; }
+  .cf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .cf-submit {
+    font-size: 0.65rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    padding: 1.1rem 3rem;
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    cursor: pointer;
+    font-family: 'Jost', sans-serif;
+    font-weight: 400;
+    transition: background 0.3s, color 0.3s;
+    align-self: flex-start;
+    margin-top: 0.5rem;
+  }
+  .cf-submit:hover { background: var(--gold); color: var(--black); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--black);
+    border-top: 1px solid var(--border-gold);
+    padding: 2.5rem 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .footer-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .footer-copy {
+    font-size: 0.62rem;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+  }
+  .footer-nav { display: flex; gap: 2.5rem; }
+  .footer-nav a {
+    font-size: 0.62rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .footer-nav a:hover { color: var(--gold); }
+
+  @media (max-width: 900px) {
+    nav { padding: 0 1.5rem; }
+    .nav-menu { display: none; }
+    .section { padding: 5rem 1.5rem; }
+    #hero { grid-template-columns: 1fr; }
+    .hero-sky-panel { width: 100%; clip-path: none; opacity: 0.3; }
+    .hero-content-left { padding: 0 1.5rem; }
+    .hero-right-panel { display: none; }
+    .about-layout { grid-template-columns: 1fr; gap: 3rem; }
+    .metrics-panel { grid-template-columns: 1fr 1fr; }
+    .prod-feature { grid-template-columns: 1fr; }
+    .prod-feature.reverse { direction: ltr; }
+    .prod-image-panel { min-height: 250px; position: relative; }
+    .gallery-mosaic { grid-template-columns: 1fr; grid-template-rows: auto; }
+    .gal-cell:first-child { grid-row: auto; }
+    .gal-cell { height: 220px; }
+    .contact-layout { grid-template-columns: 1fr; gap: 3rem; }
+    footer { flex-direction: column; align-items: flex-start; padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-wordmark">
+    <span class="nav-name">Helicopter Swivels</span>
+    <span class="nav-divider"></span>
+    <span class="nav-sub">Double Dutch Ltd.</span>
+  </a>
+  <ul class="nav-menu">
+    <li><a href="#about">About</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <!-- Sky panel -->
+  <div class="hero-sky-panel">
+    <svg class="sky-clouds" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <filter id="cf"><feGaussianBlur stdDeviation="30"/></filter>
+      </defs>
+      <g filter="url(#cf)">
+        <ellipse cx="250" cy="150" rx="250" ry="80" fill="white" opacity="0.18"/>
+        <ellipse cx="600" cy="100" rx="300" ry="70" fill="white" opacity="0.12"/>
+        <ellipse cx="400" cy="350" rx="200" ry="60" fill="white" opacity="0.1"/>
+        <ellipse cx="100" cy="450" rx="180" ry="55" fill="white" opacity="0.08"/>
+      </g>
+    </svg>
+
+    <!-- Helicopter scene in sky -->
+    <svg style="position:absolute;inset:0;width:100%;height:100%;" viewBox="0 0 500 800" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <filter id="heliShadow">
+          <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="rgba(0,0,0,0.4)"/>
+        </filter>
+        <linearGradient id="goldLine" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#c9a84c" stop-opacity="0.6"/>
+          <stop offset="100%" stop-color="#c9a84c" stop-opacity="0.1"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Helicopter body -->
+      <g class="heli-float" transform="translate(250, 160)" filter="url(#heliShadow)">
+        <!-- Main rotor -->
+        <g class="rotor-main" transform="translate(80,15)">
+          <rect x="-105" y="-5" width="210" height="9" rx="3" fill="rgba(201,168,76,0.5)"/>
+          <rect x="-7" y="-105" width="14" height="210" rx="3" fill="rgba(201,168,76,0.5)"/>
+          <circle r="9" fill="#c9a84c" opacity="0.7"/>
+        </g>
+
+        <!-- Fuselage -->
+        <ellipse cx="80" cy="50" rx="62" ry="24" fill="#1c1c1f"/>
+        <!-- Cockpit -->
+        <ellipse cx="55" cy="43" rx="28" ry="20" fill="rgba(90,176,224,0.4)"/>
+        <ellipse cx="55" cy="43" rx="24" ry="16" fill="rgba(157,208,240,0.3)"/>
+        <!-- Gold trim -->
+        <path d="M30 44 Q55 28 82 40" stroke="#c9a84c" stroke-width="1" fill="none" opacity="0.5"/>
+        <!-- Body -->
+        <rect x="78" y="34" width="58" height="30" rx="5" fill="#141416"/>
+        <!-- Gold stripe -->
+        <rect x="78" y="34" width="58" height="3" fill="#c9a84c" opacity="0.4"/>
+        <!-- Tail boom -->
+        <path d="M132 54 L195 46 L195 60 L132 62 Z" fill="#0c0c0e"/>
+        <line x1="132" y1="52" x2="195" y2="44" stroke="#c9a84c" stroke-width="0.5" opacity="0.3"/>
+        <!-- Tail rotor -->
+        <g transform="translate(195,53)">
+          <rect x="-3" y="-28" width="6" height="56" rx="1.5" fill="#c9a84c" opacity="0.4"/>
+          <rect x="-28" y="-3" width="56" height="6" rx="1.5" fill="#c9a84c" opacity="0.4" transform="rotate(30)"/>
+        </g>
+        <!-- Skids -->
+        <line x1="38" y1="72" x2="38" y2="84" stroke="#c9a84c" stroke-width="2" opacity="0.5"/>
+        <line x1="118" y1="70" x2="118" y2="84" stroke="#c9a84c" stroke-width="2" opacity="0.5"/>
+        <line x1="22" y1="84" x2="135" y2="84" stroke="#c9a84c" stroke-width="2.5" opacity="0.5"/>
+
+        <!-- Long line + swivel + load -->
+        <g class="line-and-load">
+          <!-- Cable with gold tint -->
+          <line x1="80" y1="84" x2="80" y2="430" stroke="url(#goldLine)" stroke-width="2"/>
+
+          <!-- Swivel housing -->
+          <rect x="66" y="198" width="28" height="52" rx="9" fill="#1c1c1f"/>
+          <rect x="69" y="201" width="22" height="46" rx="7" fill="#252528"/>
+          <!-- Gold accent rings -->
+          <rect x="66" y="208" width="28" height="3" fill="#c9a84c" opacity="0.5"/>
+          <rect x="66" y="235" width="28" height="3" fill="#c9a84c" opacity="0.5"/>
+          <circle cx="80" cy="198" r="7" fill="#141416" stroke="#c9a84c" stroke-width="1" stroke-opacity="0.4"/>
+          <circle cx="80" cy="250" r="7" fill="#141416" stroke="#c9a84c" stroke-width="1" stroke-opacity="0.4"/>
+
+          <!-- Load — elegant box with gold trim -->
+          <rect x="54" y="430" width="52" height="42" rx="3" fill="#141416"/>
+          <rect x="57" y="433" width="46" height="36" rx="2" fill="#1c1c1f"/>
+          <!-- Gold trim on load -->
+          <rect x="54" y="430" width="52" height="2" fill="#c9a84c" opacity="0.4"/>
+          <rect x="54" y="468" width="52" height="2" fill="#c9a84c" opacity="0.2"/>
+          <!-- Rigging -->
+          <line x1="65" y1="430" x2="65" y2="412" stroke="#c9a84c" stroke-width="1.5" opacity="0.4"/>
+          <line x1="95" y1="430" x2="95" y2="412" stroke="#c9a84c" stroke-width="1.5" opacity="0.4"/>
+          <line x1="65" y1="412" x2="95" y2="412" stroke="#c9a84c" stroke-width="1.5" opacity="0.4"/>
+          <line x1="80" y1="412" x2="80" y2="430" stroke="#c9a84c" stroke-width="1.5" opacity="0.4"/>
+        </g>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Content left -->
+  <div class="hero-content-left">
+    <div class="hero-rule"></div>
+    <p class="hero-eyebrow">Edmonton, Alberta — Canada</p>
+    <h1 class="hero-title">
+      The World's<br>
+      Finest <em>Long-Line</em><br>
+      Swivels
+    </h1>
+    <div class="hero-divider"></div>
+    <p class="hero-desc">
+      Precision-engineered electrical swivels and carousel control units for the helicopter industry. Trusted by operators across the globe for over 14 years.
+    </p>
+    <div class="hero-cta-row">
+      <a href="#products" class="cta-primary">View Products</a>
+      <a href="#contact" class="cta-secondary">Contact →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section">
+  <div class="container">
+    <div class="about-layout">
+      <div class="about-body">
+        <div class="label-row">
+          <span class="label-line"></span>
+          <span class="label-text">Our History</span>
+        </div>
+        <h2 class="sec-heading">Engineered by<br><em>Experience</em></h2>
+        <p>After working for many years as a helicopter mechanic on over <strong>15 different types of helicopters</strong> in various operational theaters and countries, Jack Barzilay became a supervisor in the Operational Stores of the largest helicopter company in Canada.</p>
+        <p>It was there where the gap became clear — the industry had no quality swivels to choose from. So Jack started designing and manufacturing his own. <strong>Double Dutch Ltd.</strong> has now been selling swivels for over 14 years, all over the world, with many satisfied customers in both the helicopter and rigging industries.</p>
+        <p>We listen to our customers and take their suggestions to heart. Incorporating their ideas has resulted in the manufacturing of high-quality, durable swivels that can withstand the harshest environments and helicopter operations.</p>
+      </div>
+      <div class="metrics-panel">
+        <div class="metric">
+          <div class="metric-num">500<span class="metric-suf">+</span></div>
+          <div class="metric-label">Units sold worldwide</div>
+        </div>
+        <div class="metric">
+          <div class="metric-num">14<span class="metric-suf">+</span></div>
+          <div class="metric-label">Years in business</div>
+        </div>
+        <div class="metric">
+          <div class="metric-num">15<span class="metric-suf">+</span></div>
+          <div class="metric-label">Helicopter types</div>
+        </div>
+        <div class="metric">
+          <div class="metric-num">−50<span class="metric-suf">°</span></div>
+          <div class="metric-label">Tested to Celsius</div>
+        </div>
+      </div>
+    </div>
+    <div class="founder-panel">
+      <p class="founder-quote-text">
+        "We listen to our customers and have taken their suggestions to heart. Incorporating their ideas has resulted in the manufacturing of high quality, durable swivels that can withstand the harshest environments and helicopter operations."
+      </p>
+      <div class="founder-sig">Jack Barzilay — Founder, Double Dutch Ltd.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products" class="section">
+  <div class="container">
+    <div class="label-row">
+      <span class="label-line"></span>
+      <span class="label-text">Products & Specifications</span>
+    </div>
+    <h2 class="sec-heading">Precision <em>Equipment</em></h2>
+
+    <!-- Swivel-4TE -->
+    <div class="prod-feature">
+      <div class="prod-image-panel">
+        <img src="../company/website/DSCF5030.jpeg" alt="Swivel-4TE">
+        <div class="prod-image-overlay"></div>
+      </div>
+      <div class="prod-info-panel">
+        <div class="prod-category">Electrical Long-Line Swivel</div>
+        <div class="prod-name">Swivel-4TE</div>
+        <div class="prod-full-name">Redesigned &amp; Upgraded — WLL 4¾ Ton</div>
+        <p class="prod-desc-text">
+          Incorporates a rotary contact for continuous 360° rotation in all environments and RPM. Compact, tough, lightweight and corrosion-proof. Increases the life of your long-line. Compatible with 5/8" G-209A 5T shackles. Clevis-end and stainless steel braided lead options available.
+        </p>
+        <div class="specs">
+          <div class="spec-row"><span class="sk">WLL Rating</span><span class="sv gold">4¾ Ton</span></div>
+          <div class="spec-row"><span class="sk">Break Test</span><span class="sv gold">48,810 lbs</span></div>
+          <div class="spec-row"><span class="sk">Material</span><span class="sv">7075-T651 Aluminum</span></div>
+          <div class="spec-row"><span class="sk">Dimensions</span><span class="sv">9.5" × 2.5"</span></div>
+          <div class="spec-row"><span class="sk">Weight</span><span class="sv">4 lbs</span></div>
+          <div class="spec-row"><span class="sk">Current</span><span class="sv">30A / 3-conductor</span></div>
+          <div class="spec-row"><span class="sk">Hole Size</span><span class="sv">13/16"</span></div>
+          <div class="spec-row"><span class="sk">Safe Ratio</span><span class="sv">5:1</span></div>
+        </div>
+        <div class="prod-origin">Made in Canada</div>
+      </div>
+    </div>
+
+    <!-- CCU -->
+    <div class="prod-feature reverse">
+      <div class="prod-image-panel">
+        <img src="../company/website/20220926_144203.jpg" alt="CCU-2020-4">
+        <div class="prod-image-overlay" style="background:linear-gradient(to left,rgba(6,6,7,0.3),transparent)"></div>
+      </div>
+      <div class="prod-info-panel">
+        <div class="prod-category">Carousel Control Unit</div>
+        <div class="prod-name">CCU-2020-4</div>
+        <div class="prod-full-name">Solid State Electronic — No Moving Parts</div>
+        <p class="prod-desc-text">
+          A fully electronic, solid state carousel hook switching controller. Fully weatherproof ABS housing tested to −50°C. Only requires 3 wires from the aircraft (ground and 2 positive) for full operation. Expandable in multiples of 4 hooks. Quantity discounts available.
+        </p>
+        <div class="specs">
+          <div class="spec-row"><span class="sk">Starting Price</span><span class="sv gold">$1,100</span></div>
+          <div class="spec-row"><span class="sk">Min Hooks</span><span class="sv">4 (×4 expandable)</span></div>
+          <div class="spec-row"><span class="sk">Test Temp</span><span class="sv">−50°C</span></div>
+          <div class="spec-row"><span class="sk">Housing</span><span class="sv">ABS Weatherproof</span></div>
+          <div class="spec-row"><span class="sk">Dimensions</span><span class="sv">OD 5" × H 5.25"</span></div>
+          <div class="spec-row"><span class="sk">Aircraft Wires</span><span class="sv">3 (GND + 2 pos)</span></div>
+        </div>
+        <div class="prod-origin">Designed &amp; Manufactured in Canada</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery" class="section">
+  <div class="container">
+    <div class="label-row">
+      <span class="label-line"></span>
+      <span class="label-text">Photo Gallery</span>
+    </div>
+    <h2 class="sec-heading">The <em>Hardware</em></h2>
+    <div class="gallery-mosaic">
+      <div class="gal-cell">
+        <img src="../company/website/DSCF5030.jpeg" alt="Swivel range">
+        <div class="gal-cell-label">Model Range</div>
+      </div>
+      <div class="gal-cell">
+        <img src="../company/website/original.jpeg" alt="Standard swivel">
+        <div class="gal-cell-label">Standard Eye</div>
+      </div>
+      <div class="gal-cell">
+        <img src="../company/website/20220926_144203.jpg" alt="Clevis end">
+        <div class="gal-cell-label">Clevis End Option</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section">
+  <div class="container">
+    <div class="label-row">
+      <span class="label-line"></span>
+      <span class="label-text">Contact</span>
+    </div>
+    <h2 class="sec-heading">Get in <em>Touch</em></h2>
+    <div class="contact-layout">
+      <div>
+        <div class="contact-detail-group">
+          <div class="cdg-label">Company</div>
+          <div class="cdg-value">Double Dutch Ltd.</div>
+        </div>
+        <div class="contact-detail-group">
+          <div class="cdg-label">Address</div>
+          <div class="cdg-value">6128 Ada Blvd NW<br>Edmonton, Alberta T5W 4N9<br>Canada</div>
+        </div>
+        <div class="contact-detail-group">
+          <div class="cdg-label">Phone</div>
+          <div class="cdg-value"><a href="tel:+17802885677">1-780-288-5677</a></div>
+        </div>
+        <div class="contact-detail-group">
+          <div class="cdg-label">Email</div>
+          <div class="cdg-value"><a href="mailto:doubledutchrv@hotmail.com">doubledutchrv@hotmail.com</a></div>
+        </div>
+        <div class="lang-note-gold">
+          English not your language? We are equally comfortable communicating in <strong>Dutch</strong> and <strong>German</strong>.
+        </div>
+      </div>
+      <div>
+        <form class="contact-form-wrap" onsubmit="return false;">
+          <div class="cf-row">
+            <div class="cf-group">
+              <label class="cf-label">Name</label>
+              <input class="cf-input" type="text" placeholder="Your name">
+            </div>
+            <div class="cf-group">
+              <label class="cf-label">Phone (optional)</label>
+              <input class="cf-input" type="tel" placeholder="+1 000 000 0000">
+            </div>
+          </div>
+          <div class="cf-group">
+            <label class="cf-label">Email</label>
+            <input class="cf-input" type="email" placeholder="your@email.com">
+          </div>
+          <div class="cf-group">
+            <label class="cf-label">Message</label>
+            <textarea class="cf-textarea" placeholder="Tell us about your requirements..."></textarea>
+          </div>
+          <button class="cf-submit">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">Helicopter Swivels</div>
+  <nav class="footer-nav">
+    <a href="#about">About</a>
+    <a href="#products">Products</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="footer-copy">© Double Dutch Ltd. — Edmonton, Alberta, Canada</div>
+</footer>
+
+</body>
+</html>
