@@ -1,0 +1,17 @@
+# Branding Notes
+# Fill in any brand preferences
+
+Preferred colors:
+[e.g. navy blue and silver, red and white, etc.]
+
+Logo:
+[Drop logo file into company/assets/ - list filename here]
+
+Images:
+[Drop photos into company/assets/ - product shots, team photos, etc.]
+
+Tone / feel:
+[e.g. professional, industrial, technical, friendly, premium]
+
+Any websites you like the look of:
+[References for style inspiration]
