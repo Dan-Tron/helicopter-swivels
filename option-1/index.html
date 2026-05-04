@@ -647,10 +647,10 @@
     </defs>
 
     <!-- Glow halo around helicopter -->
-    <ellipse cx="1050" cy="220" rx="120" ry="60" fill="url(#heliGlow)"/>
+    <ellipse cx="1050" cy="320" rx="120" ry="60" fill="url(#heliGlow)"/>
 
-    <!-- Helicopter group — positioned upper-right, clear of hero text -->
-    <g class="helicopter-group" transform="translate(950, 80)">
+    <!-- Helicopter group — rotor needs 122px clearance above group origin -->
+    <g class="helicopter-group" transform="translate(900, 200)">
       <!-- Rotor assembly -->
       <g class="rotor-blade" transform="translate(70, 12)">
         <rect x="-110" y="-5" width="220" height="10" rx="3" fill="#c8d4e0" opacity="0.9"/>

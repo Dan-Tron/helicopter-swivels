@@ -738,7 +738,7 @@
     </svg>
 
     <!-- Helicopter scene in sky -->
-    <svg style="position:absolute;inset:0;width:100%;height:100%;" viewBox="0 0 500 700" preserveAspectRatio="xMidYMin meet">
+    <svg style="position:absolute;inset:0;width:100%;height:100%;" viewBox="0 0 500 700" preserveAspectRatio="xMidYMid slice">
       <defs>
         <filter id="heliShadow">
           <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="rgba(0,0,0,0.4)"/>
@@ -749,8 +749,8 @@
         </linearGradient>
       </defs>
 
-      <!-- Helicopter body — lowered so rotor has clearance at top -->
-      <g class="heli-float" transform="translate(250, 240)" filter="url(#heliShadow)">
+      <!-- Helicopter body — rotor at translate(80,15) extends -105 upward, so group y needs >90 -->
+      <g class="heli-float" transform="translate(250, 180)" filter="url(#heliShadow)">
         <!-- Main rotor -->
         <g class="rotor-main" transform="translate(80,15)">
           <rect x="-105" y="-5" width="210" height="9" rx="3" fill="rgba(201,168,76,0.5)"/>
