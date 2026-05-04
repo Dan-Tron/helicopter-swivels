@@ -631,61 +631,100 @@
   </div>
 
   <div class="heli-scene-wrap">
-    <svg class="heli-svg" viewBox="0 0 260 460" xmlns="http://www.w3.org/2000/svg">
+    <svg class="heli-svg" viewBox="0 0 300 500" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <radialGradient id="heliGlow1" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#00b4ff" stop-opacity="0.2"/>
-          <stop offset="100%" stop-color="#00b4ff" stop-opacity="0"/>
-        </radialGradient>
+        <pattern id="grid-a" width="20" height="20" patternUnits="userSpaceOnUse">
+          <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(0,180,255,0.06)" stroke-width="0.5"/>
+        </pattern>
+        <filter id="glow-a" x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="3" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="glow-rotor-a" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="2" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <linearGradient id="line-grad-a" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#00b4ff" stop-opacity="0.8"/>
+          <stop offset="100%" stop-color="#00b4ff" stop-opacity="0.15"/>
+        </linearGradient>
+        <linearGradient id="fuselage-a" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#4a6a88"/>
+          <stop offset="100%" stop-color="#1e3248"/>
+        </linearGradient>
+        <linearGradient id="body-a" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#2a4a66"/>
+          <stop offset="100%" stop-color="#0e2236"/>
+        </linearGradient>
       </defs>
-
-      <!-- Glow -->
-      <ellipse cx="110" cy="150" rx="100" ry="60" fill="url(#heliGlow1)"/>
-
-      <g class="helicopter-group">
-        <!-- Rotor blades — centred at (110,110) -->
-        <g class="rotor-blade">
-          <rect x="10" y="105" width="200" height="10" rx="3" fill="#c8d4e0" opacity="0.9"/>
-          <rect x="105" y="10" width="10" height="200" rx="3" fill="#c8d4e0" opacity="0.9"/>
-          <circle cx="110" cy="110" r="8" fill="#8899aa"/>
-          <animateTransform attributeName="transform" type="rotate" from="0 110 110" to="360 110 110" dur="1.5s" repeatCount="indefinite"/>
+      <rect width="300" height="500" fill="url(#grid-a)"/>
+      <line x1="0" y1="420" x2="300" y2="420" stroke="rgba(0,180,255,0.12)" stroke-width="1"/>
+      <line x1="150" y1="0" x2="150" y2="500" stroke="rgba(0,180,255,0.05)" stroke-width="1"/>
+      <g>
+        <animateTransform attributeName="transform" type="translate"
+          values="0,0; 0,-14; 0,-8; 0,-16; 0,0"
+          keyTimes="0; 0.3; 0.55; 0.75; 1"
+          dur="5s" repeatCount="indefinite" calcMode="spline"
+          keySplines="0.45,0,0.55,1; 0.45,0,0.55,1; 0.45,0,0.55,1; 0.45,0,0.55,1"/>
+        <rect x="147" y="98" width="6" height="18" fill="#2a4a66"/>
+        <circle cx="150" cy="96" r="7" fill="#3a5a78" stroke="#00b4ff" stroke-width="0.5" stroke-opacity="0.6" filter="url(#glow-a)"/>
+        <g filter="url(#glow-rotor-a)">
+          <rect x="20" y="93" width="260" height="6" rx="3" fill="#5a8aaa" opacity="0.85"/>
+          <rect x="147" y="-34" width="6" height="260" rx="3" fill="#5a8aaa" opacity="0.85"/>
+          <animateTransform attributeName="transform" type="rotate"
+            from="0 150 96" to="360 150 96" dur="1.2s" repeatCount="indefinite"/>
         </g>
-
-        <!-- Fuselage — centred around (110,148) -->
-        <ellipse cx="110" cy="148" rx="65" ry="25" fill="#7a8fa0"/>
-        <!-- Cockpit -->
-        <ellipse cx="86" cy="144" rx="28" ry="20" fill="#a8c8e8" opacity="0.6"/>
-        <ellipse cx="86" cy="144" rx="26" ry="18" fill="#6ab0d8" opacity="0.3"/>
-        <!-- Body -->
-        <rect x="108" y="134" width="60" height="28" rx="4" fill="#6a7d8e"/>
-        <!-- Tail boom -->
-        <path d="M164 150 L215 143 L215 157 L164 160 Z" fill="#5a6d7e"/>
-        <!-- Tail rotor -->
-        <g transform="translate(215,150)">
-          <rect x="-3" y="-22" width="6" height="44" rx="2" fill="#8899aa"/>
-          <rect x="-22" y="-3" width="44" height="6" rx="2" fill="#8899aa" transform="rotate(30)"/>
+        <circle cx="150" cy="96" r="5" fill="#1a3a58" stroke="#00b4ff" stroke-width="1" stroke-opacity="0.8"/>
+        <ellipse cx="150" cy="148" rx="68" ry="26" fill="url(#fuselage-a)" stroke="#2a5a7a" stroke-width="0.5"/>
+        <ellipse cx="120" cy="140" rx="30" ry="22" fill="#0a1e32" opacity="0.9"/>
+        <ellipse cx="116" cy="137" rx="18" ry="13" fill="#0d2844" stroke="#00b4ff" stroke-width="0.5" stroke-opacity="0.4"/>
+        <ellipse cx="111" cy="132" rx="8" ry="5" fill="rgba(0,180,255,0.08)" transform="rotate(-20,111,132)"/>
+        <rect x="140" y="126" width="66" height="38" rx="6" fill="url(#body-a)" stroke="#1a3a56" stroke-width="0.5"/>
+        <line x1="155" y1="126" x2="155" y2="164" stroke="rgba(0,180,255,0.15)" stroke-width="0.5"/>
+        <line x1="175" y1="126" x2="175" y2="164" stroke="rgba(0,180,255,0.15)" stroke-width="0.5"/>
+        <line x1="140" y1="145" x2="206" y2="145" stroke="rgba(0,180,255,0.1)" stroke-width="0.5"/>
+        <rect x="198" y="128" width="8" height="6" rx="1" fill="#0a1e2e"/>
+        <rect x="198" y="128" width="8" height="2" fill="#00b4ff" opacity="0.3"/>
+        <path d="M200 148 Q240 148 268 138 L268 152 Q240 160 200 160 Z" fill="#1a3248" stroke="#1e4060" stroke-width="0.5"/>
+        <line x1="200" y1="150" x2="268" y2="143" stroke="rgba(0,180,255,0.1)" stroke-width="0.5"/>
+        <path d="M264 138 L270 110 L276 138" fill="#152840" stroke="#1e4060" stroke-width="0.5"/>
+        <line x1="270" y1="112" x2="270" y2="138" stroke="rgba(0,180,255,0.15)" stroke-width="0.5"/>
+        <circle cx="270" cy="138" r="5" fill="#1a3a56" stroke="#00b4ff" stroke-width="0.5" stroke-opacity="0.5"/>
+        <g>
+          <rect x="267" y="116" width="6" height="44" rx="2" fill="#3a6080" opacity="0.7"/>
+          <rect x="249" y="135" width="42" height="6" rx="2" fill="#3a6080" opacity="0.7"/>
+          <animateTransform attributeName="transform" type="rotate"
+            from="0 270 138" to="360 270 138" dur="0.4s" repeatCount="indefinite"/>
         </g>
-        <!-- Skids -->
-        <line x1="68" y1="168" x2="68" y2="178" stroke="#445566" stroke-width="3"/>
-        <line x1="148" y1="166" x2="148" y2="178" stroke="#445566" stroke-width="3"/>
-        <line x1="54" y1="178" x2="162" y2="178" stroke="#445566" stroke-width="3"/>
-
-        <!-- Long line + swivel + load -->
-        <g class="long-line">
-          <line x1="110" y1="178" x2="110" y2="400" stroke="#334455" stroke-width="2"/>
-          <line x1="110" y1="178" x2="110" y2="400" stroke="rgba(200,220,240,0.3)" stroke-width="1"/>
-          <!-- Swivel -->
-          <rect x="97" y="258" width="26" height="42" rx="6" fill="#8899aa"/>
-          <rect x="100" y="261" width="20" height="36" rx="4" fill="#aabbcc"/>
-          <circle cx="110" cy="258" r="5" fill="#99aabb"/>
-          <circle cx="110" cy="300" r="5" fill="#99aabb"/>
-          <!-- Load -->
-          <rect x="82" y="400" width="56" height="40" rx="4" fill="#556677"/>
-          <rect x="86" y="404" width="48" height="32" rx="3" fill="#667788"/>
-          <line x1="95" y1="400" x2="95" y2="385" stroke="#334455" stroke-width="2"/>
-          <line x1="125" y1="400" x2="125" y2="385" stroke="#334455" stroke-width="2"/>
-          <line x1="95" y1="385" x2="125" y2="385" stroke="#334455" stroke-width="2"/>
-          <line x1="110" y1="385" x2="110" y2="400" stroke="#334455" stroke-width="2"/>
+        <line x1="120" y1="170" x2="110" y2="192" stroke="#2a4a66" stroke-width="2.5"/>
+        <line x1="180" y1="168" x2="190" y2="192" stroke="#2a4a66" stroke-width="2.5"/>
+        <rect x="98" y="190" width="104" height="5" rx="2.5" fill="#1e3a56" stroke="#2a5a7a" stroke-width="0.5"/>
+        <rect x="92" y="192" width="22" height="3" rx="1.5" fill="#2a4a66"/>
+        <rect x="186" y="192" width="22" height="3" rx="1.5" fill="#2a4a66"/>
+        <g>
+          <animateTransform attributeName="transform" type="rotate"
+            values="0 150 192; 1.8 150 192; 0 150 192; -1.8 150 192; 0 150 192"
+            dur="4s" repeatCount="indefinite" calcMode="spline"
+            keySplines="0.45,0,0.55,1;0.45,0,0.55,1;0.45,0,0.55,1;0.45,0,0.55,1"/>
+          <line x1="150" y1="192" x2="150" y2="390" stroke="url(#line-grad-a)" stroke-width="1.5"/>
+          <line x1="151" y1="192" x2="151" y2="390" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+          <rect x="138" y="262" width="24" height="50" rx="7" fill="#1a3a56" stroke="#00b4ff" stroke-width="0.5" stroke-opacity="0.6" filter="url(#glow-a)"/>
+          <rect x="141" y="265" width="18" height="44" rx="5" fill="#243e58"/>
+          <line x1="138" y1="276" x2="162" y2="276" stroke="#00b4ff" stroke-width="0.5" stroke-opacity="0.5"/>
+          <line x1="138" y1="284" x2="162" y2="284" stroke="#00b4ff" stroke-width="0.5" stroke-opacity="0.3"/>
+          <line x1="138" y1="292" x2="162" y2="292" stroke="#00b4ff" stroke-width="0.5" stroke-opacity="0.3"/>
+          <line x1="138" y1="300" x2="162" y2="300" stroke="#00b4ff" stroke-width="0.5" stroke-opacity="0.5"/>
+          <circle cx="150" cy="262" r="5" fill="#0e2236" stroke="#00b4ff" stroke-width="0.8" stroke-opacity="0.7"/>
+          <circle cx="150" cy="312" r="5" fill="#0e2236" stroke="#00b4ff" stroke-width="0.8" stroke-opacity="0.7"/>
+          <rect x="122" y="390" width="56" height="44" rx="3" fill="#152840" stroke="#1e3a56" stroke-width="0.5"/>
+          <rect x="125" y="393" width="50" height="38" rx="2" fill="#1a3248"/>
+          <line x1="122" y1="411" x2="178" y2="411" stroke="rgba(0,180,255,0.12)" stroke-width="0.5"/>
+          <line x1="150" y1="390" x2="150" y2="434" stroke="rgba(0,180,255,0.08)" stroke-width="0.5"/>
+          <rect x="122" y="390" width="56" height="2" fill="#00b4ff" opacity="0.4"/>
+          <line x1="132" y1="390" x2="132" y2="374" stroke="#1a3a56" stroke-width="1.5"/>
+          <line x1="168" y1="390" x2="168" y2="374" stroke="#1a3a56" stroke-width="1.5"/>
+          <line x1="132" y1="374" x2="168" y2="374" stroke="#1a3a56" stroke-width="1.5"/>
+          <line x1="150" y1="374" x2="150" y2="390" stroke="#1a3a56" stroke-width="1.5"/>
         </g>
       </g>
     </svg>
