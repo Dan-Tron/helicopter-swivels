@@ -243,13 +243,7 @@
     0%,100% { transform: translateY(0); }
     50% { transform: translateY(-14px); }
   }
-  .rotor {
-    transform-origin: 110px 110px;
-    animation: spin 0.2s linear infinite;
-  }
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
+  /* rotor spin handled by SVG animateTransform */
   .swivel-device {
     animation: swingLoad 3.5s ease-in-out infinite;
     transform-origin: 110px 178px;
@@ -688,6 +682,7 @@
             <rect x="10" y="106" width="200" height="8" rx="2" fill="rgba(30,74,122,0.7)"/>
             <rect x="106" y="10" width="8" height="200" rx="2" fill="rgba(30,74,122,0.7)"/>
             <circle cx="110" cy="110" r="8" fill="#1e4a7a"/>
+            <animateTransform attributeName="transform" type="rotate" from="0 110 110" to="360 110 110" dur="1.5s" repeatCount="indefinite"/>
           </g>
 
           <!-- Fuselage -->

@@ -244,13 +244,7 @@
     33% { transform: translateY(-16px) rotate(-0.5deg); }
     66% { transform: translateY(-8px) rotate(0.3deg); }
   }
-  .rotor-main {
-    transform-origin: 110px 110px;
-    animation: rotorSpin 0.18s linear infinite;
-  }
-  @keyframes rotorSpin {
-    to { transform: rotate(360deg); }
-  }
+  /* rotor spin handled by SVG animateTransform */
   .line-and-load {
     transform-origin: 110px 178px;
     animation: loadSwing 5s ease-in-out infinite;
@@ -755,6 +749,7 @@
           <rect x="10" y="105" width="200" height="9" rx="3" fill="rgba(201,168,76,0.5)"/>
           <rect x="105" y="10" width="9" height="200" rx="3" fill="rgba(201,168,76,0.5)"/>
           <circle cx="110" cy="110" r="9" fill="#c9a84c" opacity="0.7"/>
+          <animateTransform attributeName="transform" type="rotate" from="0 110 110" to="360 110 110" dur="1.5s" repeatCount="indefinite"/>
         </g>
 
         <!-- Fuselage -->

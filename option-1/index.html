@@ -158,14 +158,7 @@
     50% { transform: translateY(-12px); }
   }
 
-  .rotor-blade {
-    transform-origin: 110px 110px;
-    animation: spinRotor 0.15s linear infinite;
-  }
-  @keyframes spinRotor {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
+  /* rotor spin handled by SVG animateTransform */
 
   .long-line {
     animation: lineSwing 4s ease-in-out infinite;
@@ -656,6 +649,7 @@
           <rect x="10" y="105" width="200" height="10" rx="3" fill="#c8d4e0" opacity="0.9"/>
           <rect x="105" y="10" width="10" height="200" rx="3" fill="#c8d4e0" opacity="0.9"/>
           <circle cx="110" cy="110" r="8" fill="#8899aa"/>
+          <animateTransform attributeName="transform" type="rotate" from="0 110 110" to="360 110 110" dur="1.5s" repeatCount="indefinite"/>
         </g>
 
         <!-- Fuselage — centred around (110,148) -->
