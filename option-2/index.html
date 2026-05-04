@@ -466,6 +466,97 @@
     font-weight: 500;
   }
 
+  /* ── CCU PHOTO GALLERY ── */
+  .ccu-gallery {
+    position: relative;
+    cursor: pointer;
+  }
+  .ccu-slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+  .ccu-slide.active { opacity: 1; }
+  .ccu-dots {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+    z-index: 2;
+  }
+  .ccu-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .ccu-dot.active { background: var(--white); }
+
+  /* ── DOWNLOADS ── */
+  #downloads { background: var(--silver-light); }
+  .downloads-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .download-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    padding: 1.75rem 2rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    transition: box-shadow 0.3s, transform 0.3s;
+    text-decoration: none;
+    color: inherit;
+  }
+  .download-card:hover {
+    box-shadow: 0 8px 30px rgba(15,35,64,0.1);
+    transform: translateY(-3px);
+  }
+  .download-icon {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    background: var(--sky-1);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .download-icon svg { width: 22px; height: 22px; }
+  .download-info { flex: 1; }
+  .download-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 0.3rem;
+  }
+  .download-desc {
+    font-size: 0.82rem;
+    color: var(--text-mid);
+    font-weight: 300;
+    line-height: 1.6;
+  }
+  .download-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 1.5px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+  }
+
   /* ── GALLERY ── */
   #gallery { background: var(--navy); }
   #gallery .eyebrow { color: var(--sky-3); }
@@ -625,6 +716,7 @@
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#products">Products</a></li>
+    <li><a href="#downloads">Manuals</a></li>
     <li><a href="#gallery">Gallery</a></li>
     <li><a href="#contact" class="nav-cta">Contact Us</a></li>
   </ul>
@@ -853,8 +945,15 @@
       </div>
 
       <div class="prod-card">
-        <div class="prod-img">
-          <img src="../images/20220926_144203.jpg" alt="CCU-2020-4">
+        <div class="prod-img ccu-gallery">
+          <img src="../images/CCU pic small.jpg" alt="CCU-2020-4 angled view" class="ccu-slide active">
+          <img src="../images/DSCF5049.JPG" alt="CCU-2020-4 terminal layout" class="ccu-slide">
+          <img src="../images/DSCF5050.JPG" alt="CCU-2020-4 body detail" class="ccu-slide">
+          <div class="ccu-dots">
+            <span class="ccu-dot active" onclick="ccuSlide(0)"></span>
+            <span class="ccu-dot" onclick="ccuSlide(1)"></span>
+            <span class="ccu-dot" onclick="ccuSlide(2)"></span>
+          </div>
         </div>
         <div class="prod-body">
           <span class="prod-badge">Control Unit</span>
@@ -878,6 +977,49 @@
   </div>
 </section>
 
+<!-- DOWNLOADS -->
+<section id="downloads">
+  <div class="container">
+    <p class="eyebrow">Documentation</p>
+    <h2 class="sec-title">Product Manuals</h2>
+    <div class="downloads-grid">
+
+      <a class="download-card" href="../manuals/Operator Manual CCU 2020-8.pdf" target="_blank" download>
+        <div class="download-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="12" y1="18" x2="12" y2="12"/>
+            <polyline points="9 15 12 18 15 15"/>
+          </svg>
+        </div>
+        <div class="download-info">
+          <div class="download-title">CCU 2020-8 Operator Manual</div>
+          <div class="download-desc">Installation, wiring, and operation instructions for the Carousel Control Unit. Covers terminal layout, hook sequencing, and switch wiring.</div>
+          <div class="download-meta">PDF — Operator Manual</div>
+        </div>
+      </a>
+
+      <a class="download-card" href="../manuals/Owners Manual Electrical Swivel.pdf" target="_blank" download>
+        <div class="download-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="12" y1="18" x2="12" y2="12"/>
+            <polyline points="9 15 12 18 15 15"/>
+          </svg>
+        </div>
+        <div class="download-info">
+          <div class="download-title">Electrical Swivel Owner's Manual</div>
+          <div class="download-desc">Service and maintenance guide for the Electrical Swivel. Includes disassembly, bearing specifications, lubrication, and overhaul intervals.</div>
+          <div class="download-meta">PDF — Owner's Manual</div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
 <!-- GALLERY -->
 <section id="gallery">
   <div class="container">
@@ -893,8 +1035,8 @@
         <div class="gal-caption">Swivel-4TE — Standard Eye</div>
       </div>
       <div class="gal-item">
-        <img src="../images/20220926_144203.jpg" alt="Clevis end">
-        <div class="gal-caption">Swivel-4TE — Clevis End Option</div>
+        <img src="../images/CCU pic small.jpg" alt="CCU-2020-4">
+        <div class="gal-caption">CCU-2020-4 — Carousel Control Unit</div>
       </div>
     </div>
   </div>
@@ -960,10 +1102,34 @@
   <div class="footer-links">
     <a href="#about">About</a>
     <a href="#products">Products</a>
+    <a href="#downloads">Manuals</a>
     <a href="#contact">Contact</a>
   </div>
   <div style="font-size:0.75rem;color:rgba(255,255,255,0.3);">© Double Dutch Ltd. Edmonton, Alberta, Canada</div>
 </footer>
+
+<script>
+  // CCU photo slideshow
+  let ccuCurrent = 0;
+  const ccuSlides = document.querySelectorAll('.ccu-slide');
+  const ccuDots = document.querySelectorAll('.ccu-dot');
+
+  function ccuSlide(n) {
+    ccuSlides[ccuCurrent].classList.remove('active');
+    ccuDots[ccuCurrent].classList.remove('active');
+    ccuCurrent = n;
+    ccuSlides[ccuCurrent].classList.add('active');
+    ccuDots[ccuCurrent].classList.add('active');
+  }
+
+  // Auto-advance every 3.5s
+  setInterval(() => ccuSlide((ccuCurrent + 1) % ccuSlides.length), 3500);
+
+  // Click gallery to advance
+  document.querySelector('.ccu-gallery').addEventListener('click', () => {
+    ccuSlide((ccuCurrent + 1) % ccuSlides.length);
+  });
+</script>
 
 </body>
 </html>
