@@ -133,28 +133,32 @@
   }
 
   /* SVG Helicopter Scene */
-  .heli-scene {
+  .heli-scene-wrap {
     position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
+    top: 0; right: 0;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     pointer-events: none;
   }
 
+  .heli-svg {
+    width: 80%;
+    max-width: 320px;
+  }
+
   .helicopter-group {
-    animation: heliFloat 4s ease-in-out infinite, heliDrift 12s ease-in-out infinite;
-    transform-origin: center;
+    animation: heliFloat 4s ease-in-out infinite;
   }
   @keyframes heliFloat {
     0%, 100% { transform: translateY(0px); }
     50% { transform: translateY(-12px); }
   }
-  @keyframes heliDrift {
-    0%, 100% { transform: translateX(0px) translateY(0px); }
-    33% { transform: translateX(8px) translateY(-6px); }
-    66% { transform: translateX(-5px) translateY(-10px); }
-  }
 
   .rotor-blade {
-    transform-origin: 50% 50%;
+    transform-origin: 110px 110px;
     animation: spinRotor 0.15s linear infinite;
   }
   @keyframes spinRotor {
@@ -164,7 +168,7 @@
 
   .long-line {
     animation: lineSwing 4s ease-in-out infinite;
-    transform-origin: top;
+    transform-origin: 110px 182px;
   }
   @keyframes lineSwing {
     0%, 100% { transform: rotate(-1deg); }
@@ -633,75 +637,65 @@
     <div class="cloud c5" style="top:20%;left:70%;width:450px;height:140px;"></div>
   </div>
 
-  <!-- SVG Helicopter Scene -->
-  <svg class="heli-scene" viewBox="0 0 1400 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-    <!-- Atmosphere layers -->
-    <defs>
-      <radialGradient id="heliGlow" cx="50%" cy="50%" r="50%">
-        <stop offset="0%" stop-color="#00b4ff" stop-opacity="0.15"/>
-        <stop offset="100%" stop-color="#00b4ff" stop-opacity="0"/>
-      </radialGradient>
-      <filter id="blurFilter">
-        <feGaussianBlur stdDeviation="2"/>
-      </filter>
-    </defs>
+  <div class="heli-scene-wrap">
+    <svg class="heli-svg" viewBox="0 0 230 500" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="heliGlow1" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#00b4ff" stop-opacity="0.2"/>
+          <stop offset="100%" stop-color="#00b4ff" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
 
-    <!-- Glow halo around helicopter -->
-    <ellipse cx="1050" cy="320" rx="120" ry="60" fill="url(#heliGlow)"/>
+      <!-- Glow -->
+      <ellipse cx="110" cy="150" rx="100" ry="60" fill="url(#heliGlow1)"/>
 
-    <!-- Helicopter group — rotor needs 122px clearance above group origin -->
-    <g class="helicopter-group" transform="translate(900, 200)">
-      <!-- Rotor assembly -->
-      <g class="rotor-blade" transform="translate(70, 12)">
-        <rect x="-110" y="-5" width="220" height="10" rx="3" fill="#c8d4e0" opacity="0.9"/>
-        <rect x="-8" y="-110" width="16" height="220" rx="3" fill="#c8d4e0" opacity="0.9"/>
+      <g class="helicopter-group">
+        <!-- Rotor blades — centred at (110,110) -->
+        <g class="rotor-blade">
+          <rect x="10" y="105" width="200" height="10" rx="3" fill="#c8d4e0" opacity="0.9"/>
+          <rect x="105" y="10" width="10" height="200" rx="3" fill="#c8d4e0" opacity="0.9"/>
+          <circle cx="110" cy="110" r="8" fill="#8899aa"/>
+        </g>
+
+        <!-- Fuselage — centred around (110,148) -->
+        <ellipse cx="110" cy="148" rx="65" ry="25" fill="#7a8fa0"/>
+        <!-- Cockpit -->
+        <ellipse cx="86" cy="144" rx="28" ry="20" fill="#a8c8e8" opacity="0.6"/>
+        <ellipse cx="86" cy="144" rx="26" ry="18" fill="#6ab0d8" opacity="0.3"/>
+        <!-- Body -->
+        <rect x="108" y="134" width="60" height="28" rx="4" fill="#6a7d8e"/>
+        <!-- Tail boom -->
+        <path d="M164 150 L215 143 L215 157 L164 160 Z" fill="#5a6d7e"/>
+        <!-- Tail rotor -->
+        <g transform="translate(215,150)">
+          <rect x="-3" y="-22" width="6" height="44" rx="2" fill="#8899aa"/>
+          <rect x="-22" y="-3" width="44" height="6" rx="2" fill="#8899aa" transform="rotate(30)"/>
+        </g>
+        <!-- Skids -->
+        <line x1="68" y1="168" x2="68" y2="178" stroke="#445566" stroke-width="3"/>
+        <line x1="148" y1="166" x2="148" y2="178" stroke="#445566" stroke-width="3"/>
+        <line x1="54" y1="178" x2="162" y2="178" stroke="#445566" stroke-width="3"/>
+
+        <!-- Long line + swivel + load -->
+        <g class="long-line">
+          <line x1="110" y1="178" x2="110" y2="400" stroke="#334455" stroke-width="2"/>
+          <line x1="110" y1="178" x2="110" y2="400" stroke="rgba(200,220,240,0.3)" stroke-width="1"/>
+          <!-- Swivel -->
+          <rect x="97" y="258" width="26" height="42" rx="6" fill="#8899aa"/>
+          <rect x="100" y="261" width="20" height="36" rx="4" fill="#aabbcc"/>
+          <circle cx="110" cy="258" r="5" fill="#99aabb"/>
+          <circle cx="110" cy="300" r="5" fill="#99aabb"/>
+          <!-- Load -->
+          <rect x="82" y="400" width="56" height="40" rx="4" fill="#556677"/>
+          <rect x="86" y="404" width="48" height="32" rx="3" fill="#667788"/>
+          <line x1="95" y1="400" x2="95" y2="385" stroke="#334455" stroke-width="2"/>
+          <line x1="125" y1="400" x2="125" y2="385" stroke="#334455" stroke-width="2"/>
+          <line x1="95" y1="385" x2="125" y2="385" stroke="#334455" stroke-width="2"/>
+          <line x1="110" y1="385" x2="110" y2="400" stroke="#334455" stroke-width="2"/>
+        </g>
       </g>
-      <!-- Rotor hub -->
-      <circle cx="70" cy="12" r="8" fill="#8899aa"/>
-
-      <!-- Fuselage -->
-      <ellipse cx="72" cy="42" rx="65" ry="25" fill="#7a8fa0"/>
-      <!-- Cockpit bubble -->
-      <ellipse cx="48" cy="38" rx="28" ry="20" fill="#a8c8e8" opacity="0.6"/>
-      <ellipse cx="48" cy="38" rx="26" ry="18" fill="#6ab0d8" opacity="0.3"/>
-      <!-- Body detail -->
-      <rect x="70" y="28" width="60" height="28" rx="4" fill="#6a7d8e"/>
-      <!-- Tail boom -->
-      <path d="M128 45 L190 38 L190 52 L128 55 Z" fill="#5a6d7e"/>
-      <!-- Tail rotor -->
-      <g transform="translate(190,45)">
-        <rect x="-3" y="-30" width="6" height="60" rx="2" fill="#8899aa"/>
-        <rect x="-30" y="-3" width="60" height="6" rx="2" fill="#8899aa" transform="rotate(30)"/>
-      </g>
-      <!-- Skids -->
-      <line x1="30" y1="62" x2="30" y2="72" stroke="#445566" stroke-width="3"/>
-      <line x1="100" y1="60" x2="100" y2="72" stroke="#445566" stroke-width="3"/>
-      <line x1="15" y1="72" x2="120" y2="72" stroke="#445566" stroke-width="3"/>
-      <line x1="20" y1="65" x2="115" y2="65" stroke="#445566" stroke-width="2" opacity="0.5"/>
-
-      <!-- Long line — shortened so cargo stays well above hero text -->
-      <g class="long-line">
-        <line x1="70" y1="72" x2="70" y2="280" stroke="#334455" stroke-width="2"/>
-        <line x1="70" y1="72" x2="70" y2="280" stroke="rgba(200,220,240,0.3)" stroke-width="1"/>
-        <!-- Swivel device on line -->
-        <rect x="57" y="140" width="26" height="42" rx="6" fill="#8899aa"/>
-        <rect x="60" y="143" width="20" height="36" rx="4" fill="#aabbcc"/>
-        <circle cx="70" cy="140" r="5" fill="#99aabb"/>
-        <circle cx="70" cy="182" r="5" fill="#99aabb"/>
-        <!-- Load at bottom -->
-        <rect x="42" y="280" width="56" height="40" rx="4" fill="#556677"/>
-        <rect x="46" y="284" width="48" height="32" rx="3" fill="#667788"/>
-        <line x1="55" y1="280" x2="55" y2="265" stroke="#334455" stroke-width="2"/>
-        <line x1="85" y1="280" x2="85" y2="265" stroke="#334455" stroke-width="2"/>
-        <line x1="55" y1="265" x2="85" y2="265" stroke="#334455" stroke-width="2"/>
-        <line x1="70" y1="265" x2="70" y2="280" stroke="#334455" stroke-width="2"/>
-      </g>
-    </g>
-
-    <!-- Electric blue accent lines -->
-    <line x1="1020" y1="60" x2="1150" y2="60" stroke="rgba(0,180,255,0.2)" stroke-width="1" stroke-dasharray="4,8"/>
-    <line x1="0" y1="700" x2="1400" y2="700" stroke="rgba(0,180,255,0.15)" stroke-width="1"/>
-  </svg>
+    </svg>
+  </div>
 
   <div class="hero-content">
     <p class="hero-eyebrow">// Long-Line Swivels — Edmonton, Alberta, Canada</p>

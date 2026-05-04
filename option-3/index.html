@@ -245,14 +245,14 @@
     66% { transform: translateY(-8px) rotate(0.3deg); }
   }
   .rotor-main {
-    transform-origin: 80px 15px;
+    transform-origin: 110px 110px;
     animation: rotorSpin 0.18s linear infinite;
   }
   @keyframes rotorSpin {
     to { transform: rotate(360deg); }
   }
   .line-and-load {
-    transform-origin: 80px 105px;
+    transform-origin: 110px 178px;
     animation: loadSwing 5s ease-in-out infinite;
   }
   @keyframes loadSwing {
@@ -738,7 +738,7 @@
     </svg>
 
     <!-- Helicopter scene in sky -->
-    <svg style="position:absolute;inset:0;width:100%;height:100%;" viewBox="0 0 500 700" preserveAspectRatio="xMidYMid slice">
+    <svg style="position:absolute;inset:0;width:100%;height:100%;" viewBox="0 0 230 500" preserveAspectRatio="xMidYMid meet">
       <defs>
         <filter id="heliShadow">
           <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="rgba(0,0,0,0.4)"/>
@@ -749,64 +749,57 @@
         </linearGradient>
       </defs>
 
-      <!-- Helicopter body — rotor at translate(80,15) extends -105 upward, so group y needs >90 -->
-      <g class="heli-float" transform="translate(250, 180)" filter="url(#heliShadow)">
-        <!-- Main rotor -->
-        <g class="rotor-main" transform="translate(80,15)">
-          <rect x="-105" y="-5" width="210" height="9" rx="3" fill="rgba(201,168,76,0.5)"/>
-          <rect x="-7" y="-105" width="14" height="210" rx="3" fill="rgba(201,168,76,0.5)"/>
-          <circle r="9" fill="#c9a84c" opacity="0.7"/>
+      <g class="heli-float" filter="url(#heliShadow)">
+        <!-- Rotor blades — centred at (110,110) -->
+        <g class="rotor-main">
+          <rect x="10" y="105" width="200" height="9" rx="3" fill="rgba(201,168,76,0.5)"/>
+          <rect x="105" y="10" width="9" height="200" rx="3" fill="rgba(201,168,76,0.5)"/>
+          <circle cx="110" cy="110" r="9" fill="#c9a84c" opacity="0.7"/>
         </g>
 
         <!-- Fuselage -->
-        <ellipse cx="80" cy="50" rx="62" ry="24" fill="#1c1c1f"/>
+        <ellipse cx="110" cy="148" rx="62" ry="24" fill="#1c1c1f"/>
         <!-- Cockpit -->
-        <ellipse cx="55" cy="43" rx="28" ry="20" fill="rgba(90,176,224,0.4)"/>
-        <ellipse cx="55" cy="43" rx="24" ry="16" fill="rgba(157,208,240,0.3)"/>
+        <ellipse cx="86" cy="142" rx="28" ry="20" fill="rgba(90,176,224,0.4)"/>
+        <ellipse cx="86" cy="142" rx="24" ry="16" fill="rgba(157,208,240,0.3)"/>
         <!-- Gold trim -->
-        <path d="M30 44 Q55 28 82 40" stroke="#c9a84c" stroke-width="1" fill="none" opacity="0.5"/>
+        <path d="M62 143 Q86 127 113 139" stroke="#c9a84c" stroke-width="1" fill="none" opacity="0.5"/>
         <!-- Body -->
-        <rect x="78" y="34" width="58" height="30" rx="5" fill="#141416"/>
+        <rect x="108" y="132" width="58" height="30" rx="5" fill="#141416"/>
         <!-- Gold stripe -->
-        <rect x="78" y="34" width="58" height="3" fill="#c9a84c" opacity="0.4"/>
+        <rect x="108" y="132" width="58" height="3" fill="#c9a84c" opacity="0.4"/>
         <!-- Tail boom -->
-        <path d="M132 54 L195 46 L195 60 L132 62 Z" fill="#0c0c0e"/>
-        <line x1="132" y1="52" x2="195" y2="44" stroke="#c9a84c" stroke-width="0.5" opacity="0.3"/>
+        <path d="M162 152 L215 144 L215 158 L162 160 Z" fill="#0c0c0e"/>
+        <line x1="162" y1="150" x2="215" y2="142" stroke="#c9a84c" stroke-width="0.5" opacity="0.3"/>
         <!-- Tail rotor -->
-        <g transform="translate(195,53)">
-          <rect x="-3" y="-28" width="6" height="56" rx="1.5" fill="#c9a84c" opacity="0.4"/>
-          <rect x="-28" y="-3" width="56" height="6" rx="1.5" fill="#c9a84c" opacity="0.4" transform="rotate(30)"/>
+        <g transform="translate(215,151)">
+          <rect x="-3" y="-22" width="6" height="44" rx="1.5" fill="#c9a84c" opacity="0.4"/>
+          <rect x="-22" y="-3" width="44" height="6" rx="1.5" fill="#c9a84c" opacity="0.4" transform="rotate(30)"/>
         </g>
         <!-- Skids -->
-        <line x1="38" y1="72" x2="38" y2="84" stroke="#c9a84c" stroke-width="2" opacity="0.5"/>
-        <line x1="118" y1="70" x2="118" y2="84" stroke="#c9a84c" stroke-width="2" opacity="0.5"/>
-        <line x1="22" y1="84" x2="135" y2="84" stroke="#c9a84c" stroke-width="2.5" opacity="0.5"/>
+        <line x1="68" y1="168" x2="68" y2="178" stroke="#c9a84c" stroke-width="2" opacity="0.5"/>
+        <line x1="148" y1="166" x2="148" y2="178" stroke="#c9a84c" stroke-width="2" opacity="0.5"/>
+        <line x1="54" y1="178" x2="162" y2="178" stroke="#c9a84c" stroke-width="2.5" opacity="0.5"/>
 
-        <!-- Long line + swivel + load — shortened to stay in panel -->
+        <!-- Long line + swivel + load -->
         <g class="line-and-load">
-          <!-- Cable with gold tint -->
-          <line x1="80" y1="84" x2="80" y2="320" stroke="url(#goldLine)" stroke-width="2"/>
-
-          <!-- Swivel housing -->
-          <rect x="66" y="168" width="28" height="52" rx="9" fill="#1c1c1f"/>
-          <rect x="69" y="171" width="22" height="46" rx="7" fill="#252528"/>
-          <!-- Gold accent rings -->
-          <rect x="66" y="178" width="28" height="3" fill="#c9a84c" opacity="0.5"/>
-          <rect x="66" y="205" width="28" height="3" fill="#c9a84c" opacity="0.5"/>
-          <circle cx="80" cy="168" r="7" fill="#141416" stroke="#c9a84c" stroke-width="1" stroke-opacity="0.4"/>
-          <circle cx="80" cy="220" r="7" fill="#141416" stroke="#c9a84c" stroke-width="1" stroke-opacity="0.4"/>
-
-          <!-- Load — elegant box with gold trim -->
-          <rect x="54" y="320" width="52" height="42" rx="3" fill="#141416"/>
-          <rect x="57" y="323" width="46" height="36" rx="2" fill="#1c1c1f"/>
-          <!-- Gold trim on load -->
-          <rect x="54" y="320" width="52" height="2" fill="#c9a84c" opacity="0.4"/>
-          <rect x="54" y="358" width="52" height="2" fill="#c9a84c" opacity="0.2"/>
-          <!-- Rigging -->
-          <line x1="65" y1="320" x2="65" y2="302" stroke="#c9a84c" stroke-width="1.5" opacity="0.4"/>
-          <line x1="95" y1="320" x2="95" y2="302" stroke="#c9a84c" stroke-width="1.5" opacity="0.4"/>
-          <line x1="65" y1="302" x2="95" y2="302" stroke="#c9a84c" stroke-width="1.5" opacity="0.4"/>
-          <line x1="80" y1="302" x2="80" y2="320" stroke="#c9a84c" stroke-width="1.5" opacity="0.4"/>
+          <line x1="110" y1="178" x2="110" y2="400" stroke="url(#goldLine)" stroke-width="2"/>
+          <!-- Swivel -->
+          <rect x="96" y="258" width="28" height="52" rx="9" fill="#1c1c1f"/>
+          <rect x="99" y="261" width="22" height="46" rx="7" fill="#252528"/>
+          <rect x="96" y="268" width="28" height="3" fill="#c9a84c" opacity="0.5"/>
+          <rect x="96" y="295" width="28" height="3" fill="#c9a84c" opacity="0.5"/>
+          <circle cx="110" cy="258" r="7" fill="#141416" stroke="#c9a84c" stroke-width="1" stroke-opacity="0.4"/>
+          <circle cx="110" cy="310" r="7" fill="#141416" stroke="#c9a84c" stroke-width="1" stroke-opacity="0.4"/>
+          <!-- Load -->
+          <rect x="84" y="400" width="52" height="42" rx="3" fill="#141416"/>
+          <rect x="87" y="403" width="46" height="36" rx="2" fill="#1c1c1f"/>
+          <rect x="84" y="400" width="52" height="2" fill="#c9a84c" opacity="0.4"/>
+          <rect x="84" y="438" width="52" height="2" fill="#c9a84c" opacity="0.2"/>
+          <line x1="95" y1="400" x2="95" y2="382" stroke="#c9a84c" stroke-width="1.5" opacity="0.4"/>
+          <line x1="125" y1="400" x2="125" y2="382" stroke="#c9a84c" stroke-width="1.5" opacity="0.4"/>
+          <line x1="95" y1="382" x2="125" y2="382" stroke="#c9a84c" stroke-width="1.5" opacity="0.4"/>
+          <line x1="110" y1="382" x2="110" y2="400" stroke="#c9a84c" stroke-width="1.5" opacity="0.4"/>
         </g>
       </g>
     </svg>
