@@ -1077,26 +1077,27 @@
         </div>
       </div>
       <div>
-        <form onsubmit="return false;">
+        <form id="contact-form" onsubmit="submitForm(event)">
           <div class="f-row">
             <div class="f-group">
               <label class="f-label">Name</label>
-              <input class="f-input" type="text" placeholder="Your name">
+              <input id="f-name" class="f-input" type="text" placeholder="Your name" required>
             </div>
             <div class="f-group">
               <label class="f-label">Phone (optional)</label>
-              <input class="f-input" type="tel" placeholder="+1 000 000 0000">
+              <input id="f-phone" class="f-input" type="tel" placeholder="+1 000 000 0000">
             </div>
           </div>
           <div class="f-group">
             <label class="f-label">Email address</label>
-            <input class="f-input" type="email" placeholder="your@email.com">
+            <input id="f-email" class="f-input" type="email" placeholder="your@email.com" required>
           </div>
           <div class="f-group">
             <label class="f-label">Your message</label>
-            <textarea class="f-textarea" placeholder="Tell us about your requirements..."></textarea>
+            <textarea id="f-message" class="f-textarea" placeholder="Tell us about your requirements..." required></textarea>
           </div>
-          <button class="f-submit">Send Message</button>
+          <button class="f-submit" id="f-btn">Send Message</button>
+          <div id="f-status" style="margin-top:1rem;font-size:0.875rem;display:none;"></div>
         </form>
       </div>
     </div>
@@ -1116,6 +1117,44 @@
 </footer>
 
 <script>
+  async function submitForm(e) {
+    e.preventDefault();
+    const btn = document.getElementById('f-btn');
+    const status = document.getElementById('f-status');
+
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    status.style.display = 'none';
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: document.getElementById('f-name').value,
+          email: document.getElementById('f-email').value,
+          phone: document.getElementById('f-phone').value,
+          message: document.getElementById('f-message').value
+        })
+      });
+
+      if (res.ok) {
+        status.style.cssText = 'margin-top:1rem;font-size:0.875rem;color:#1e6eb5;display:block;';
+        status.textContent = 'Message sent — we\'ll be in touch shortly.';
+        document.getElementById('contact-form').reset();
+      } else {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || 'Unexpected error');
+      }
+    } catch (err) {
+      status.style.cssText = 'margin-top:1rem;font-size:0.875rem;color:#c0392b;display:block;';
+      status.textContent = err.message || 'Something went wrong. Please try again.';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Send Message';
+    }
+  }
+
   const galleries = {};
 
   document.querySelectorAll('.ccu-gallery').forEach(el => {
