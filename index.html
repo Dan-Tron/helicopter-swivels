@@ -88,7 +88,7 @@
   .nav-cta:hover { background: var(--navy-light) !important; color: white !important; }
 
   /* ── HERO ── */
-  #hero {
+  #skyhero {
     position: relative;
     height: 100vh;
     min-height: 680px;
@@ -251,6 +251,10 @@
   @keyframes swingLoad {
     0%,100% { transform: rotate(-1.5deg); }
     50% { transform: rotate(1.5deg); }
+  }
+  @keyframes swingWild {
+    0%,100% { transform: rotate(-25deg); }
+    50% { transform: rotate(25deg); }
   }
 
   /* ── TRUST BAR ── */
@@ -712,7 +716,7 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#hero" class="nav-brand">
+  <a href=""#skyhero"" class="nav-brand">
     <span class="nav-brand-main">Helicopter Swivels</span>
     <span class="nav-brand-sub">Double Dutch Ltd.</span>
   </a>
@@ -726,7 +730,7 @@
 </nav>
 
 <!-- HERO -->
-<section id="hero">
+<section id="skyhero">
   <div class="sky"></div>
 
   <!-- Soft cloud shapes -->
@@ -1120,6 +1124,53 @@
 </footer>
 
 <script>
+  // Konami Code easter egg
+  const konamiSequence = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+  let konamiIndex = 0;
+  document.addEventListener('keydown', e => {
+    if (e.key === konamiSequence[konamiIndex]) {
+      konamiIndex++;
+      if (konamiIndex === konamiSequence.length) {
+        konamiIndex = 0;
+        triggerKonami();
+      }
+    } else {
+      konamiIndex = e.key === konamiSequence[0] ? 1 : 0;
+    }
+  });
+
+  function triggerKonami() {
+    // Spin all rotors fast
+    document.querySelectorAll('animateTransform').forEach(a => {
+      a.setAttribute('dur', '0.08s');
+    });
+    // Wild swing on the load
+    document.querySelectorAll('.swivel-device').forEach(el => {
+      el.style.animation = 'swingWild 0.3s ease-in-out infinite';
+    });
+    // Flash overlay
+    const overlay = document.createElement('div');
+    overlay.style.cssText = 'position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:rgba(15,35,64,0.85);animation:fadeIn 0.3s ease;';
+    overlay.innerHTML = `<div style="text-align:center;color:white;font-family:'Playfair Display',serif;">
+      <div style="font-size:3rem;margin-bottom:1rem;">🚁</div>
+      <div style="font-size:1.5rem;font-weight:700;letter-spacing:2px;">FULL POWER UNLOCKED</div>
+      <div style="font-size:0.8rem;margin-top:0.75rem;opacity:0.6;font-family:'DM Mono',monospace;letter-spacing:3px;">↑↑↓↓←→←→BA</div>
+    </div>`;
+    document.body.appendChild(overlay);
+    overlay.addEventListener('click', () => {
+      overlay.remove();
+      document.querySelectorAll('animateTransform').forEach(a => a.setAttribute('dur', '1.2s'));
+      document.querySelectorAll('.swivel-device').forEach(el => el.style.animation = '');
+    });
+    setTimeout(() => {
+      if (overlay.parentNode) {
+        overlay.remove();
+        document.querySelectorAll('animateTransform').forEach(a => a.setAttribute('dur', '1.2s'));
+        document.querySelectorAll('.swivel-device').forEach(el => el.style.animation = '');
+      }
+    }, 4000);
+  }
+
   async function submitForm(e) {
     e.preventDefault();
     const btn = document.getElementById('f-btn');
