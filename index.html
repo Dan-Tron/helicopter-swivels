@@ -1128,9 +1128,9 @@
   const konamiSequence = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
   let konamiIndex = 0;
   document.addEventListener('keydown', e => {
-    if (e.metaKey || e.ctrlKey || e.altKey) return;
-    const key = e.key;
-    if (key === konamiSequence[konamiIndex]) {
+    const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+    const expected = konamiSequence[konamiIndex];
+    if (key === expected) {
       konamiIndex++;
       if (konamiIndex === konamiSequence.length) {
         konamiIndex = 0;
