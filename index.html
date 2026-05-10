@@ -1128,14 +1128,17 @@
   const konamiSequence = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
   let konamiIndex = 0;
   document.addEventListener('keydown', e => {
-    if (e.key === konamiSequence[konamiIndex]) {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    const key = e.key;
+    if (key === konamiSequence[konamiIndex]) {
       konamiIndex++;
       if (konamiIndex === konamiSequence.length) {
         konamiIndex = 0;
         triggerKonami();
       }
     } else {
-      konamiIndex = e.key === konamiSequence[0] ? 1 : 0;
+      konamiIndex = 0;
+      if (key === konamiSequence[0]) konamiIndex = 1;
     }
   });
 
