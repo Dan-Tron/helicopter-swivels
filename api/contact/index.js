@@ -20,7 +20,13 @@ module.exports = async function (context, req) {
     return;
   }
 
-  const { name, email, phone, message } = req.body || {};
+  const { name, email, phone, message, website } = req.body || {};
+
+  // Honeypot — bots fill this hidden field, humans don't
+  if (website) {
+    context.res = { status: 200, headers, body: { success: true } };
+    return;
+  }
 
   if (!name || !email || !message) {
     context.res = {

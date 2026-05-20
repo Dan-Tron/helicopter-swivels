@@ -1103,6 +1103,7 @@
             <label class="f-label">Your message</label>
             <textarea id="f-message" class="f-textarea" placeholder="Tell us about your requirements..." required></textarea>
           </div>
+          <input type="text" name="website" id="f-honeypot" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;">
           <button class="f-submit" id="f-btn">Send Message</button>
           <div id="f-status" style="margin-top:1rem;font-size:0.875rem;display:none;"></div>
         </form>
@@ -1190,7 +1191,8 @@
           name: document.getElementById('f-name').value,
           email: document.getElementById('f-email').value,
           phone: document.getElementById('f-phone').value,
-          message: document.getElementById('f-message').value
+          message: document.getElementById('f-message').value,
+          website: document.getElementById('f-honeypot').value
         })
       });
 
