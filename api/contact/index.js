@@ -1,4 +1,20 @@
 const sgMail = require('@sendgrid/mail');
+const { TableClient } = require('@azure/data-tables');
+
+const TABLE_NAME = 'contactsubmissions';
+
+async function logSubmission(entry) {
+  try {
+    const client = TableClient.fromConnectionString(
+      process.env.STORAGE_CONNECTION_STRING,
+      TABLE_NAME
+    );
+    await client.createTableIfNotExists();
+    await client.createEntity(entry);
+  } catch (err) {
+    // Logging failure should never block the form response
+  }
+}
 
 module.exports = async function (context, req) {
   const allowedOrigins = [
@@ -21,9 +37,23 @@ module.exports = async function (context, req) {
   }
 
   const { name, email, phone, message, website } = req.body || {};
+  const timestamp = new Date().toISOString();
+  const rowKey = timestamp.replace(/[:.]/g, '-') + '-' + Math.random().toString(36).slice(2, 7);
+  const ip = req.headers['x-forwarded-for'] || req.headers['client-ip'] || 'unknown';
 
   // Honeypot — bots fill this hidden field, humans don't
   if (website) {
+    await logSubmission({
+      partitionKey: 'spam',
+      rowKey,
+      timestamp,
+      name: name || '',
+      email: email || '',
+      phone: phone || '',
+      message: (message || '').slice(0, 500),
+      ip,
+      status: 'honeypot'
+    });
     context.res = { status: 200, headers, body: { success: true } };
     return;
   }
@@ -82,6 +112,17 @@ module.exports = async function (context, req) {
 
   try {
     await sgMail.send(msg);
+    await logSubmission({
+      partitionKey: 'sent',
+      rowKey,
+      timestamp,
+      name,
+      email,
+      phone: phone || '',
+      message: message.slice(0, 500),
+      ip,
+      status: 'sent'
+    });
     context.res = {
       status: 200,
       headers,
@@ -89,6 +130,18 @@ module.exports = async function (context, req) {
     };
   } catch (err) {
     context.log.error('SendGrid error:', err.response?.body || err.message);
+    await logSubmission({
+      partitionKey: 'error',
+      rowKey,
+      timestamp,
+      name,
+      email,
+      phone: phone || '',
+      message: message.slice(0, 500),
+      ip,
+      status: 'error',
+      errorDetail: String(err.message || '').slice(0, 200)
+    });
     context.res = {
       status: 500,
       headers,
